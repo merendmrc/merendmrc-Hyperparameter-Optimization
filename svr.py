@@ -16,20 +16,20 @@ Y = norm_data.values[:,8:]
 xtrain,xtest,ytrain,ytest = train_test_split(X,Y,test_size=0.2,shuffle=True,stratify=Y,random_state=42,)
 
 
-kernels = ['linear','poly','rbf','sigmoid','precomputed'] #kernel parameter values to test
+kernels = ['linear','poly','rbf','sigmoid'] #kernel parameter values to test
 results = []
 
 for i in kernels:
     model = SVR(kernel = i)
     model.fit(xtrain, ytrain)
     
-    tahminler = model.predict(xtest)
+    predictions = model.predict(xtest)
         
     results.append(f"""
 kernell: {i.upper()}:
-MAE= {round(mean_absolute_error(ytest, tahminler),4)}
-MSE= {round(mean_squared_error(ytest, tahminler),4)}
-RMSE= {round(sqrt(mean_squared_error(ytest, tahminler)),4)}""")
+MAE= {round(mean_absolute_error(ytest, predictions),4)}
+MSE= {round(mean_squared_error(ytest, predictions),4)}
+RMSE= {round(sqrt(mean_squared_error(ytest, predictions)),4)}""")
     
 for i in results:
     print(i)
